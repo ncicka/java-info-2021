@@ -1,4 +1,4 @@
-package PracticaGuiada;
+
 import java.util.Scanner;
 
 public class Ejercicio6 {
