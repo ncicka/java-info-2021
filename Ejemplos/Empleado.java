@@ -1,3 +1,5 @@
+
+
 public abstract class Empleado {
 
     private int dni;
@@ -14,7 +16,6 @@ public abstract class Empleado {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         //return super.toString();
         return String.valueOf(this.dni)+
         " - "+this.nombre +
