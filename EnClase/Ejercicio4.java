@@ -44,12 +44,15 @@ public class Ejercicio4 {
         File archivo = new File(arch);
         BufferedWriter bw = null;
         try {
+            //si ya existe agrego datos
             boolean existe = (archivo.exists())?true:false;
             FileOutputStream oFile = new FileOutputStream(archivo,existe);
             OutputStreamWriter oStream = new OutputStreamWriter(oFile, StandardCharsets.UTF_8);
             bw = new BufferedWriter(oStream);     
             for (Empleado emp : lista) {
                 bw.write(emp.toString()+"\n"); 
+                //otra forma de agregar un salto de linea
+                //bw.newLine();
             }  
             bw.flush();
         }finally{
