@@ -1,0 +1,5 @@
+Elena, Urrutia, 1975-06-12,15400.08
+Jacobo, Zambrano, 1976-06-21,10600.04
+Karina, Álvarez, 1977-07-22,12300.20
+Sebastián, Linares, 1978-08-23,10000.01
+Mercedes, Suarez, 1979-09-24,16000.06
