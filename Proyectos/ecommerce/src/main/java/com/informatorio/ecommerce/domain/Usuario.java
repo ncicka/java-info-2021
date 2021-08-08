@@ -2,11 +2,18 @@ package com.informatorio.ecommerce.domain;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import com.informatorio.ecommerce.utils.ValidationHelper;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
@@ -16,17 +23,26 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @NotEmpty(message="Debe ingresar el nombre")
+    //@NotEmpty(message="Debe ingresar el nombre")
+    // NotEmpty deja pasar espacios en blanco
+    @NotBlank(message="Debe ingresar el nombre")
     private String nombre;
 
-    @NotEmpty(message="Debe ingresar el apellido")
+    @NotBlank(message="Debe ingresar el apellido")
     private String apellido;
 
-    @NotEmpty(message="Debe ingresar la dirección")
+    @NotBlank(message="Debe ingresar la dirección")
     private String direccion;
+    
+    @Column(unique = true)
+    @Email(regexp = ValidationHelper.EMAIL_REGEX)
+    private String email;
 
+    @CreationTimestamp
+    private LocalDate fechaAlta;
 
-    private LocalDate fechaAlta = LocalDate.now();
+    @UpdateTimestamp
+    private LocalDate fechaUltimaModif;
 
 
     public Usuario() {
@@ -68,10 +84,18 @@ public class Usuario {
         return this.fechaAlta;
     }
 
-    public void setFechaAlta(LocalDate fechaAlta) {
-        this.fechaAlta = fechaAlta;
+    public LocalDate getFechaUltimaModif() {
+        return this.fechaUltimaModif;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+ 
     @Override
     public String toString() {
         return "{" +
@@ -79,8 +103,9 @@ public class Usuario {
             ", nombre='" + getNombre() + "'" +
             ", apellido='" + getApellido() + "'" +
             ", direccion='" + getDireccion() + "'" +
-            ", fechaAlta='" + getFechaAlta() + "'" +
+            ", email='" + getEmail() + "'" +
             "}";
     }
+ 
  
 }
