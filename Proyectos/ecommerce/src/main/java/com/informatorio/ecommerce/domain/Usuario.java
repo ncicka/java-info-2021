@@ -1,12 +1,16 @@
 package com.informatorio.ecommerce.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -14,7 +18,6 @@ import com.informatorio.ecommerce.utils.ValidationHelper;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 
 @Entity
 public class Usuario {
@@ -38,12 +41,14 @@ public class Usuario {
     @Email(regexp = ValidationHelper.EMAIL_REGEX)
     private String email;
 
+    @OneToMany(mappedBy= "usuario", cascade = CascadeType.ALL, orphanRemoval = true )
+    private List<Carrito> carritos = new ArrayList<>();
+
     @CreationTimestamp
     private LocalDate fechaAlta;
 
     @UpdateTimestamp
     private LocalDate fechaUltimaModif;
-
 
     public Usuario() {
     }
@@ -94,6 +99,20 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Carrito> getCarritos() {
+        return this.carritos;
+    }
+
+    public void setCarritos(List<Carrito> carritos) {
+        this.carritos = carritos;
+    }
+    public void setFechaAlta(LocalDate fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+    public void setFechaUltimaModif(LocalDate fechaUltimaModif) {
+        this.fechaUltimaModif = fechaUltimaModif;
     }
  
     @Override
