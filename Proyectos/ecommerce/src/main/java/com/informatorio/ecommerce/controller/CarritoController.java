@@ -5,12 +5,14 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.informatorio.ecommerce.domain.Carrito;
+import com.informatorio.ecommerce.domain.ItemCarrito;
 import com.informatorio.ecommerce.domain.Producto;
 import com.informatorio.ecommerce.domain.Usuario;
 import com.informatorio.ecommerce.dto.OperacionCarrito;
 import com.informatorio.ecommerce.repository.CarritoRepository;
 import com.informatorio.ecommerce.repository.ProductoRepository;
 import com.informatorio.ecommerce.repository.UsuarioRepository;
+import com.informatorio.ecommerce.repository.ItemCarritoRepository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +30,16 @@ public class CarritoController {
     private CarritoRepository carritoRepository;
     private UsuarioRepository usuarioRepository;
     private ProductoRepository productoRepository;
+    private ItemCarritoRepository itemCarritoRepository;
 
     public CarritoController(CarritoRepository carritoRepository,
                         UsuarioRepository usuarioRepository,
-                        ProductoRepository productoRepository) {
+                        ProductoRepository productoRepository,
+                        ItemCarritoRepository itemCarritoRepository) {
         this.carritoRepository = carritoRepository;
         this.usuarioRepository = usuarioRepository;
         this.productoRepository = productoRepository;
+        this.itemCarritoRepository = itemCarritoRepository;
     }
 
     @GetMapping(value="/usuario/{id}/carrito")
@@ -66,13 +71,16 @@ public class CarritoController {
         carritoRepository.deleteById(carritoId);
     }  
     
-/*    @PutMapping(value="/usuario/{id}/carrito/{carritoId}")
-    public ResponseEntity<?> agregarProducto(@PathVariable("id") Long id,
-                                            @PathVariable("carritoId") Long carritoId,
+    @PutMapping(value="/carrito/{carritoId}")
+    public ResponseEntity<?> agregarProducto(@PathVariable("carritoId") Long carritoId,
                                             @Valid @RequestBody OperacionCarrito ocarrito){
         Carrito carrito = carritoRepository.getById(carritoId);
         Producto producto = productoRepository.getById(ocarrito.getProductoId());
-        return new ResponseEntity<>(carritoRepository.save(carrito), HttpStatus.CREATED);
+        ItemCarrito nuevoItem = new ItemCarrito();
+        nuevoItem.setCarrito(carrito);
+        nuevoItem.setProducto(producto);
+        nuevoItem.setCantidad(ocarrito.getCantidad());
+        carrito.agregarItem(nuevoItem);
+        return new ResponseEntity<>(carritoRepository.save(carrito), HttpStatus.ACCEPTED);
         }
-        */
 }

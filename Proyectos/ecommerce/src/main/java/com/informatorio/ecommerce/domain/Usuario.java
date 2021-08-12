@@ -1,6 +1,5 @@
 package com.informatorio.ecommerce.domain;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +15,8 @@ import javax.validation.constraints.NotBlank;
 
 import com.informatorio.ecommerce.utils.ValidationHelper;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 @Entity
-public class Usuario {
+public class Usuario extends FechaCreacionModif{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,12 +39,6 @@ public class Usuario {
 
     @OneToMany(mappedBy= "usuario", cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Carrito> carritos = new ArrayList<>();
-
-    @CreationTimestamp
-    private LocalDate fechaAlta;
-
-    @UpdateTimestamp
-    private LocalDate fechaUltimaModif;
 
     public Usuario() {
     }
@@ -85,15 +75,7 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-    public LocalDate getFechaAlta() {
-        return this.fechaAlta;
-    }
-
-    public LocalDate getFechaUltimaModif() {
-        return this.fechaUltimaModif;
-    }
-
-    public String getEmail() {
+     public String getEmail() {
         return this.email;
     }
 
@@ -107,12 +89,6 @@ public class Usuario {
 
     public void setCarritos(List<Carrito> carritos) {
         this.carritos = carritos;
-    }
-    public void setFechaAlta(LocalDate fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
-    public void setFechaUltimaModif(LocalDate fechaUltimaModif) {
-        this.fechaUltimaModif = fechaUltimaModif;
     }
  
     @Override

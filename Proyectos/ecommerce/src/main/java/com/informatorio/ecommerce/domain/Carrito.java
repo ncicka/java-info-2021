@@ -1,6 +1,5 @@
 package com.informatorio.ecommerce.domain;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +14,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 @Entity
-public class Carrito {
+public class Carrito extends FechaCreacionModif{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,18 +24,12 @@ public class Carrito {
     private Boolean estadoAbierto;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     @OneToMany(mappedBy= "carrito", cascade = CascadeType.ALL, orphanRemoval = true )
-    private List<Carrito> carrito = new ArrayList<>();
+    private List<ItemCarrito> items = new ArrayList<>();
     
-    @CreationTimestamp
-    private LocalDate fechaAlta;
-
-    @UpdateTimestamp
-    private LocalDate fechaUltimaModif;
-
     public Carrito() {
     }
 
@@ -71,13 +61,18 @@ public class Carrito {
         this.usuario = usuario;
     }
 
-    public LocalDate getFechaAlta() {
-        return this.fechaAlta;
+    public void agregarItem(ItemCarrito item){
+        items.add(item);
+        item.setCarrito(this); 
     }
 
-    public LocalDate getFechaUltimaModif() {
-        return this.fechaUltimaModif;
+    public void removerItem(ItemCarrito item){
+        items.remove(item);
+        item.setCarrito(null);   
     }
 
+    public List<ItemCarrito> getItems() {
+        return this.items;
+    }
 
 }

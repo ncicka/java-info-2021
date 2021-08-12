@@ -1,7 +1,6 @@
 package com.informatorio.ecommerce.domain;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +10,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 @Entity
-public class Producto {
+public class Producto extends FechaCreacionModif{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,12 +31,6 @@ public class Producto {
 
     private String categoria;
     
-    @CreationTimestamp
-    private LocalDate fechaAlta;
-
-    @UpdateTimestamp
-    private LocalDate fechaUltimaModif;
-
     public Producto() {
     }
 
@@ -90,14 +80,6 @@ public class Producto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public LocalDate getFechaAlta() {
-        return this.fechaAlta;
-    }
-
-    public LocalDate getFechaUltimaModif() {
-        return this.fechaUltimaModif;
     }
 
     @Override

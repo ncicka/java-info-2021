@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemCarrito {
 
@@ -16,9 +18,11 @@ public class ItemCarrito {
 
     private Integer cantidad;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Carrito carrito;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Producto producto;
 
@@ -38,7 +42,6 @@ public class ItemCarrito {
         this.cantidad = cantidad;
     }
 
- 
     public Carrito getCarrito() {
         return this.carrito;
     }
