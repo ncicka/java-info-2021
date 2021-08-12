@@ -83,4 +83,12 @@ public class CarritoController {
         carrito.agregarItem(nuevoItem);
         return new ResponseEntity<>(carritoRepository.save(carrito), HttpStatus.ACCEPTED);
         }
+    
+    @DeleteMapping(value="/carrito/{carritoId}/item/{itemId}")
+        public void borrarProducto(@PathVariable("carritoId") Long carritoId,
+                                   @PathVariable("itemId") Long itemId){
+            Carrito carritoEncontrado = carritoRepository.getById(carritoId);
+            ItemCarrito itemEncontrado = itemCarritoRepository.getById(itemId);
+            carritoEncontrado.removerItem(itemEncontrado);
+        }
 }
