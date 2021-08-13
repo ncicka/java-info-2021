@@ -11,4 +11,6 @@ public interface ProductoRepository extends JpaRepository <Producto, Long> {
     List<Producto> findAll();
 
     List<Producto> findByDescripcionStartingWith(String descripcion);
+
+    List<Producto> findByCategoria(String categoria);
 }

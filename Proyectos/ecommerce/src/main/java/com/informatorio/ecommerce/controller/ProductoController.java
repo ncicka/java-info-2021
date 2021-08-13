@@ -65,5 +65,11 @@ public class ProductoController{
         return new ResponseEntity<>(productoRepository.findByDescripcionStartingWith(comienza),HttpStatus.ACCEPTED);
     }
 
+    @GetMapping(value="/categoria/{categoria}")
+    public ResponseEntity<?> buscarProductoxCategoria(@PathVariable("categoria") String categoria){
+        
+        return new ResponseEntity<>(productoRepository.findByCategoria(categoria),HttpStatus.ACCEPTED);
+    }
+
 }
 
