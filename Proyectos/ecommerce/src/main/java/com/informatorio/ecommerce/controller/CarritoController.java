@@ -89,6 +89,8 @@ public class CarritoController {
                                    @PathVariable("itemId") Long itemId){
             Carrito carritoEncontrado = carritoRepository.getById(carritoId);
             ItemCarrito itemEncontrado = itemCarritoRepository.getById(itemId);
+            System.out.println("ddd"+itemEncontrado.getCarrito());
             carritoEncontrado.removerItem(itemEncontrado);
+            carritoRepository.save(carritoEncontrado);
         }
 }

@@ -58,5 +58,12 @@ public class ProductoController{
     public void borrarProducto(@PathVariable("id") Long id){
         productoRepository.deleteById(id);
     }
+
+    @GetMapping(value="/descripcio/{comienza}")
+    public ResponseEntity<?> buscarProductoQueComienzaCon(@PathVariable("comienza") String comienza){
+        
+        return new ResponseEntity<>(productoRepository.findByDescripcionStartingWith(comienza),HttpStatus.ACCEPTED);
+    }
+
 }
 
