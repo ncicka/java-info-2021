@@ -46,7 +46,7 @@ public class CarritoController {
     public ResponseEntity<?> getCarrito(@PathVariable("id") Long id){
         Usuario usuarioEncontrado = usuarioRepository.getById(id);
         List<Carrito> carritos = carritoRepository.findByUsuario(usuarioEncontrado);
-        return new ResponseEntity<>(carritos, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(carritos, HttpStatus.OK);
     }
 
     @PutMapping(value="/usuario/{id}/carrito")

@@ -1,7 +1,5 @@
 package com.informatorio.ecommerce.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import com.informatorio.ecommerce.domain.Producto;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,18 +24,23 @@ public class ProductoController{
 
     @Autowired
     private ProductoRepository productoRepository;
-
-    @GetMapping
-    public List<Producto> getProducto(){
-        List<Producto> productos = productoRepository.findAll();
-        return productos;
-    }
-
-    @GetMapping(value="/{id}")
-    public Producto getProductoId(@PathVariable("id") Long id){
-        return productoRepository.findById(id).get();
-    }
  
+    @GetMapping
+    public ResponseEntity<?> getProducto(@RequestParam(name="id",required=false) Long id,
+        @RequestParam(name="descripcio_com", required= false) String comienza,
+        @RequestParam(name="categoria",required = false) String categoria){
+        if(id != null){
+            return new ResponseEntity<>(productoRepository.findById(id).get(),HttpStatus.OK);
+        }
+        if(comienza != null){
+            return new ResponseEntity<>(productoRepository.findByDescripcionStartingWith(comienza),HttpStatus.OK);
+        }
+        if(categoria != null){
+            return new ResponseEntity<>(productoRepository.findByCategoria(categoria),HttpStatus.OK);
+        }
+    return new ResponseEntity<>(productoRepository.findAll(),HttpStatus.OK);
+    }
+
     @PutMapping
     public ResponseEntity<?> crearProducto(@Valid @RequestBody Producto producto){
         return new ResponseEntity<>(productoRepository.save(producto),HttpStatus.CREATED);
@@ -57,18 +61,6 @@ public class ProductoController{
     @DeleteMapping(value="/{id}")
     public void borrarProducto(@PathVariable("id") Long id){
         productoRepository.deleteById(id);
-    }
-
-    @GetMapping(value="/descripcio/{comienza}")
-    public ResponseEntity<?> buscarProductoQueComienzaCon(@PathVariable("comienza") String comienza){
-        
-        return new ResponseEntity<>(productoRepository.findByDescripcionStartingWith(comienza),HttpStatus.ACCEPTED);
-    }
-
-    @GetMapping(value="/categoria/{categoria}")
-    public ResponseEntity<?> buscarProductoxCategoria(@PathVariable("categoria") String categoria){
-        
-        return new ResponseEntity<>(productoRepository.findByCategoria(categoria),HttpStatus.ACCEPTED);
     }
 
 }
