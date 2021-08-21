@@ -1,9 +1,11 @@
 package com.informatorio.ecommerce.controller;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import com.informatorio.ecommerce.domain.Producto;
 import com.informatorio.ecommerce.repository.ProductoRepository;
+import com.informatorio.ecommerce.service.ProductoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,19 +26,33 @@ public class ProductoController{
 
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired 
+    private ProductoService productoService;
  
+    //para probar validacion de id que no existe
+    @GetMapping(value="/prueba")
+    public ResponseEntity<?> getProductoprueba
+        (@RequestParam(name="id") Long id)
+        throws EntityNotFoundException {
+        return new ResponseEntity<>(productoService.getProductoId(id),HttpStatus.OK);   
+    }
+     
     @GetMapping
     public ResponseEntity<?> getProducto(@RequestParam(name="id",required=false) Long id,
         @RequestParam(name="descripcio_com", required= false) String comienza,
         @RequestParam(name="categoria",required = false) String categoria){
         if(id != null){
-            return new ResponseEntity<>(productoRepository.findById(id).get(),HttpStatus.OK);
-        }
+            //return new ResponseEntity<>(productoRepository.findById(id).get(),HttpStatus.OK);
+            return new ResponseEntity<>(productoService.getProductoId(id),HttpStatus.OK);
+        } 
         if(comienza != null){
-            return new ResponseEntity<>(productoRepository.findByDescripcionStartingWith(comienza),HttpStatus.OK);
+            //return new ResponseEntity<>(productoRepository.findByDescripcionStartingWith(comienza),HttpStatus.OK);
+            return new ResponseEntity<>(productoService.getProductoComienzaCon(comienza),HttpStatus.OK);
         }
         if(categoria != null){
-            return new ResponseEntity<>(productoRepository.findByCategoria(categoria),HttpStatus.OK);
+            //return new ResponseEntity<>(productoRepository.findByCategoria(categoria),HttpStatus.OK);
+            return new ResponseEntity<>(productoService.getProductoIgualCategoria(categoria),HttpStatus.OK);
         }
     return new ResponseEntity<>(productoRepository.findAll(),HttpStatus.OK);
     }
@@ -49,7 +65,8 @@ public class ProductoController{
     @PostMapping(value="/{id}")
     public ResponseEntity<?> modificarProducto(@PathVariable("id") Long id,
                                              @Valid @RequestBody Producto producto){
-        Producto productoEncontrado = productoRepository.findById(id).get();
+        //Producto productoEncontrado = productoRepository.findById(id).get();
+        Producto productoEncontrado = productoService.getProductoId(id);
         productoEncontrado.setNombre(producto.getNombre());
         productoEncontrado.setDescripcion(producto.getDescripcion());
         productoEncontrado.setCategoria(producto.getCategoria());
@@ -60,7 +77,8 @@ public class ProductoController{
 
     @DeleteMapping(value="/{id}")
     public void borrarProducto(@PathVariable("id") Long id){
-        productoRepository.deleteById(id);
+        //productoRepository.deleteById(id);
+        productoService.BorrarProductoId(id);
     }
 
 }
