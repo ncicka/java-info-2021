@@ -24,7 +24,6 @@ public class EComResponseEntityExceptionHandler extends ResponseEntityExceptionH
         error.setStatus(status);
         error.setMensaje(ex.getMessage());
         error.setCantidadErrores(ex.getErrorCount());
-        error.setDebugMensaje(ex.getLocalizedMessage());
         error.setDebugMensaje(ex.fillInStackTrace().toString());
         return new ResponseEntity<Object>(error, HttpStatus.I_AM_A_TEAPOT);
     }
@@ -39,7 +38,6 @@ public class EComResponseEntityExceptionHandler extends ResponseEntityExceptionH
             error.setStatus(status);
             error.setMensaje(ex.getMessage());
             error.setCantidadErrores(error.getCantidadErrores()+1);
-            error.setDebugMensaje(ex.getLocalizedMessage());
             error.setDebugMensaje(ex.fillInStackTrace().toString());
             return new ResponseEntity<Object>(error, HttpStatus.CONFLICT);          
         }
@@ -48,7 +46,7 @@ public class EComResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<Object>(apiError, apiError.getStatus());
     }
 
-    @ExceptionHandler(MyEntityNotFoundException.class)
+   @ExceptionHandler(MyEntityNotFoundException.class)
     protected ResponseEntity<Object> handleMyEntityNotFound(
         MyEntityNotFoundException ex){
             ApiError apiError = new ApiError();
@@ -67,6 +65,17 @@ public class EComResponseEntityExceptionHandler extends ResponseEntityExceptionH
             apiError.setMensaje(ex.getMessage());
             apiError.setCantidadErrores(apiError.getCantidadErrores()+1);
             apiError.setDebugMensaje(ex.fillInStackTrace().toString());
+            return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(java.sql.SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<Object> handleSQLIntegrityConstraintViolationException(
+        java.sql.SQLIntegrityConstraintViolationException ex){
+        ApiError apiError = new ApiError();
+            apiError.setStatus(HttpStatus.CONFLICT);
+            apiError.setMensaje(ex.getMessage());
+            apiError.setCantidadErrores(apiError.getCantidadErrores()+1);
+            apiError.setDebugMensaje(ex.getStackTrace().toString());
             return buildResponseEntity(apiError);
     }
 }

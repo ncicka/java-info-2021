@@ -23,7 +23,6 @@ public class ProductoService {
             producto = productoRepository.findById(id).get();
         } catch(Exception e){
             throw new MyEntityNotFoundException("No se encuentra el producto: "+id );
-            //throw new EntityNotFoundException("No se encuentra el producto: "+id );
         }
         return producto;
     }
@@ -49,7 +48,16 @@ public class ProductoService {
             productoRepository.deleteById(id);
         } catch(Exception e){
             throw new MyEntityNotFoundException("No se encuentra el producto: "+id );
-            //throw new EntityNotFoundException("No se encuentra el producto: "+id );
         }
+    }
+
+    public Producto modificarProductoId(Long id, Producto producto){
+        Producto productoEncontrado = this.getProductoId(id);
+        productoEncontrado.setNombre(producto.getNombre());
+        productoEncontrado.setDescripcion(producto.getDescripcion());
+        productoEncontrado.setCategoria(producto.getCategoria());
+        productoEncontrado.setPrecioUnitario(producto.getPrecioUnitario());
+        productoEncontrado.setCodigoInventario(producto.getCodigoInventario());
+        return productoEncontrado;
     }
 }

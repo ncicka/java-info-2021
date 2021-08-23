@@ -65,14 +65,8 @@ public class ProductoController{
     @PostMapping(value="/{id}")
     public ResponseEntity<?> modificarProducto(@PathVariable("id") Long id,
                                              @Valid @RequestBody Producto producto){
-        //Producto productoEncontrado = productoRepository.findById(id).get();
-        Producto productoEncontrado = productoService.getProductoId(id);
-        productoEncontrado.setNombre(producto.getNombre());
-        productoEncontrado.setDescripcion(producto.getDescripcion());
-        productoEncontrado.setCategoria(producto.getCategoria());
-        productoEncontrado.setPrecioUnitario(producto.getPrecioUnitario());
-        productoEncontrado.setCodigoInventario(producto.getCodigoInventario());
-        return new ResponseEntity<>(productoRepository.save(productoEncontrado),HttpStatus.ACCEPTED);
+        Producto productoModificado = productoService.modificarProductoId(id, producto);
+        return new ResponseEntity<>(productoRepository.save(productoModificado),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(value="/{id}")

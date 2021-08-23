@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import com.informatorio.ecommerce.domain.Usuario;
 import com.informatorio.ecommerce.repository.UsuarioRepository;
+import com.informatorio.ecommerce.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,17 +26,14 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    //Consulta por valor
-/*    @GetMapping(value="/{id}")
-    public Usuario getUsuarioId(@PathVariable("id") Long id){
-        return usuarioRepository.findById(id).get();
-    }*/
+    @Autowired
+    private UsuarioService usuarioService;
  
     //Consulta por parametro
     @GetMapping
     public ResponseEntity<?> getUsuarioById(@RequestParam(name="id",required=false) Long id){
         if (id != null){
-            return new ResponseEntity<>(usuarioRepository.findById(id).get(),HttpStatus.OK);
+            return new ResponseEntity<>(usuarioService.getUsuarioId(id),HttpStatus.OK);
         }
         return new ResponseEntity<>(usuarioRepository.findAll(), HttpStatus.OK);
     }
@@ -46,17 +44,14 @@ public class UsuarioController {
     }
     
     @PostMapping(value="/{id}")
-    public ResponseEntity<?> modificarUsuario(@PathVariable("id") Long id, @Valid @RequestBody Usuario usuario){
-        Usuario usuarioEncontrado = usuarioRepository.findById(id).get();
-        usuarioEncontrado.setApellido(usuario.getApellido());
-        usuarioEncontrado.setNombre(usuario.getNombre());
-        usuarioEncontrado.setDireccion(usuario.getDireccion());
-        usuarioEncontrado.setEmail(usuario.getEmail());
+    public ResponseEntity<?> modificarUsuario(@PathVariable("id") Long id,
+         @Valid @RequestBody Usuario usuario){
+        Usuario usuarioEncontrado = usuarioService.modificarUsuarioId(id, usuario);
         return new ResponseEntity<>(usuarioRepository.save(usuarioEncontrado),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(value="/{id}")
     public void borrarUsuario(@PathVariable("id") Long id){
-        usuarioRepository.deleteById(id);;
+        usuarioService.BorrarUsuarioId(id);
     }
 }
