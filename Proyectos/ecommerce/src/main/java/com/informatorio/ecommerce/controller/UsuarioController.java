@@ -3,7 +3,6 @@ package com.informatorio.ecommerce.controller;
 import javax.validation.Valid;
 
 import com.informatorio.ecommerce.domain.Usuario;
-import com.informatorio.ecommerce.repository.UsuarioRepository;
 import com.informatorio.ecommerce.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
     private UsuarioService usuarioService;
  
     //Consulta por parametro
@@ -35,19 +31,19 @@ public class UsuarioController {
         if (id != null){
             return new ResponseEntity<>(usuarioService.getUsuarioId(id),HttpStatus.OK);
         }
-        return new ResponseEntity<>(usuarioRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(usuarioService.listarTodos(), HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario){
-        return new ResponseEntity<>(usuarioRepository.save(usuario),HttpStatus.CREATED);
+        return new ResponseEntity<>(usuarioService.grabarUsuario(usuario),HttpStatus.CREATED);
     }
     
     @PostMapping(value="/{id}")
     public ResponseEntity<?> modificarUsuario(@PathVariable("id") Long id,
          @Valid @RequestBody Usuario usuario){
-        Usuario usuarioEncontrado = usuarioService.modificarUsuarioId(id, usuario);
-        return new ResponseEntity<>(usuarioRepository.save(usuarioEncontrado),HttpStatus.ACCEPTED);
+        Usuario usuarioModificado = usuarioService.modificarUsuarioId(id, usuario);
+        return new ResponseEntity<>(usuarioService.grabarUsuario(usuarioModificado),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(value="/{id}")

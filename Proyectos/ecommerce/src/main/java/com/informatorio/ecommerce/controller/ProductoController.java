@@ -4,7 +4,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import com.informatorio.ecommerce.domain.Producto;
-import com.informatorio.ecommerce.repository.ProductoRepository;
 import com.informatorio.ecommerce.service.ProductoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/producto")
 public class ProductoController{
 
-    @Autowired
-    private ProductoRepository productoRepository;
-
     @Autowired 
     private ProductoService productoService;
  
@@ -43,35 +39,31 @@ public class ProductoController{
         @RequestParam(name="descripcio_com", required= false) String comienza,
         @RequestParam(name="categoria",required = false) String categoria){
         if(id != null){
-            //return new ResponseEntity<>(productoRepository.findById(id).get(),HttpStatus.OK);
             return new ResponseEntity<>(productoService.getProductoId(id),HttpStatus.OK);
         } 
         if(comienza != null){
-            //return new ResponseEntity<>(productoRepository.findByDescripcionStartingWith(comienza),HttpStatus.OK);
             return new ResponseEntity<>(productoService.getProductoComienzaCon(comienza),HttpStatus.OK);
         }
         if(categoria != null){
-            //return new ResponseEntity<>(productoRepository.findByCategoria(categoria),HttpStatus.OK);
             return new ResponseEntity<>(productoService.getProductoIgualCategoria(categoria),HttpStatus.OK);
         }
-    return new ResponseEntity<>(productoRepository.findAll(),HttpStatus.OK);
+    return new ResponseEntity<>(productoService.listarTodos(),HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<?> crearProducto(@Valid @RequestBody Producto producto){
-        return new ResponseEntity<>(productoRepository.save(producto),HttpStatus.CREATED);
+        return new ResponseEntity<>(productoService.grabarProducto(producto),HttpStatus.CREATED);
     }
     
     @PostMapping(value="/{id}")
     public ResponseEntity<?> modificarProducto(@PathVariable("id") Long id,
                                              @Valid @RequestBody Producto producto){
         Producto productoModificado = productoService.modificarProductoId(id, producto);
-        return new ResponseEntity<>(productoRepository.save(productoModificado),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(productoService.grabarProducto(productoModificado),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(value="/{id}")
     public void borrarProducto(@PathVariable("id") Long id){
-        //productoRepository.deleteById(id);
         productoService.BorrarProductoId(id);
     }
 

@@ -43,6 +43,14 @@ public class ProductoService {
         return productos;
     }
 
+    public List<Producto> listarTodos (){
+        List<Producto> productos = productoRepository.findAll();
+        if (productos.isEmpty()){
+            throw new EntityNotFoundException("No hay resultados a mostrar");
+        }
+        return productos;
+    }
+
     public void BorrarProductoId(Long id){
         try{
             productoRepository.deleteById(id);
@@ -59,5 +67,9 @@ public class ProductoService {
         productoEncontrado.setPrecioUnitario(producto.getPrecioUnitario());
         productoEncontrado.setCodigoInventario(producto.getCodigoInventario());
         return productoEncontrado;
+    }
+
+    public Producto grabarProducto(Producto producto){
+        return productoRepository.save(producto);
     }
 }

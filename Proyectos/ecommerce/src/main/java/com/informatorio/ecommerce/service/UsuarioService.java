@@ -1,5 +1,9 @@
 package com.informatorio.ecommerce.service;
 
+import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
+
 import com.informatorio.ecommerce.domain.Usuario;
 import com.informatorio.ecommerce.repository.UsuarioRepository;
 import com.informatorio.ecommerce.utils.MyEntityNotFoundException;
@@ -22,7 +26,15 @@ public class UsuarioService {
         }
         return usuario;
     }
-    
+ 
+    public List<Usuario> listarTodos (){
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        if (usuarios.isEmpty()){
+            throw new EntityNotFoundException("No hay resultados a mostrar");
+        }
+        return usuarios;
+    }
+
     public void BorrarUsuarioId(Long id){
         try{
             usuarioRepository.deleteById(id);
@@ -38,4 +50,9 @@ public class UsuarioService {
         usuarioEncontrado.setEmail(usuario.getEmail());
         return usuarioEncontrado;
     }
+    
+    public Usuario grabarUsuario(Usuario usuario){
+        return usuarioRepository.save(usuario);
+    }
+
 }
