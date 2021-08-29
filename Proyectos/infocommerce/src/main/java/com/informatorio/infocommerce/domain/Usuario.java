@@ -8,11 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.informatorio.infocommerce.utils.ValidationHelper;
 
 @Entity
@@ -24,22 +25,20 @@ public class Usuario extends FechaCreaMod{
 
     @NotBlank(message="Debe ingresar el nombre")
     private String nombre;
-
+    
     @NotBlank(message="Debe ingresar el apellido")
     private String apellido;
-    
+
     @Column(unique = true)
     @Email(regexp = ValidationHelper.EMAIL_REGEX)
     private String email;
 
-    @JsonIgnore
-    @Min(8)
-    @Pattern(regexp = ValidationHelper.PASS_REGEX, 
-    message = "Letras y números, una Mayúscula, un caracter especial, largo mínimo 8")
+    @Size(min=8, message = "Largo mínimo 8 caracteres" ) 
+    @Pattern(regexp = ValidationHelper.PASS_REGEX )
     private String password;
 
     @NotBlank(message="Debe ingresar la ciudad")
-    private String cuidad;
+    private String ciudad;
 
     @NotBlank(message="Debe ingresar la provincia")
     private String provincia;
@@ -85,6 +84,8 @@ public class Usuario extends FechaCreaMod{
         this.email = email;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "password")
     public String getPassword() {
         return this.password;
     }
@@ -93,12 +94,12 @@ public class Usuario extends FechaCreaMod{
         this.password = password;
     }
 
-    public String getCuidad() {
-        return this.cuidad;
+    public String getCiudad() {
+        return this.ciudad;
     }
 
-    public void setCuidad(String cuidad) {
-        this.cuidad = cuidad;
+    public void setCiudad(String cuidad) {
+        this.ciudad = cuidad;
     }
 
     public String getProvincia() {
@@ -124,7 +125,7 @@ public class Usuario extends FechaCreaMod{
             ", nombre='" + getNombre() + "'" +
             ", apellido='" + getApellido() + "'" +
             ", email='" + getEmail() + "'" +
-            ", cuidad='" + getCuidad() + "'" +
+            ", cuidad='" + getCiudad() + "'" +
             ", provincia='" + getProvincia() + "'" +
             ", pais='" + getPais() + "'" +
             "}";
