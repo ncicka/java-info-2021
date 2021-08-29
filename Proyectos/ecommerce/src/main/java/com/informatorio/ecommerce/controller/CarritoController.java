@@ -7,11 +7,9 @@ import javax.validation.Valid;
 import com.informatorio.ecommerce.domain.Carrito;
 import com.informatorio.ecommerce.domain.ItemCarrito;
 import com.informatorio.ecommerce.domain.Producto;
-import com.informatorio.ecommerce.domain.Usuario;
 import com.informatorio.ecommerce.dto.OperacionCarrito;
 import com.informatorio.ecommerce.repository.CarritoRepository;
 import com.informatorio.ecommerce.repository.ProductoRepository;
-import com.informatorio.ecommerce.repository.UsuarioRepository;
 import com.informatorio.ecommerce.service.CarritoService;
 import com.informatorio.ecommerce.repository.ItemCarritoRepository;
 
@@ -29,18 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class CarritoController {
     
     private CarritoRepository carritoRepository;
-    private UsuarioRepository usuarioRepository;
     private ProductoRepository productoRepository;
     private ItemCarritoRepository itemCarritoRepository;
     private CarritoService carritoService;
 
     public CarritoController(CarritoRepository carritoRepository,
-                        UsuarioRepository usuarioRepository,
                         ProductoRepository productoRepository,
                         ItemCarritoRepository itemCarritoRepository,
                         CarritoService carritoService) {
         this.carritoRepository = carritoRepository;
-        this.usuarioRepository = usuarioRepository;
         this.productoRepository = productoRepository;
         this.itemCarritoRepository = itemCarritoRepository;
         this.carritoService = carritoService;
@@ -48,17 +43,14 @@ public class CarritoController {
 
     @GetMapping(value="/usuario/{id}/carrito")
     public ResponseEntity<?> getCarrito(@PathVariable("id") Long id){
-        Usuario usuarioEncontrado = usuarioRepository.getById(id);
-        List<Carrito> carritos = carritoRepository.findByUsuario(usuarioEncontrado);
+        List<Carrito> carritos = carritoService.VerCarritoActivo(id);
         return new ResponseEntity<>(carritos, HttpStatus.OK);
     }
 
     @PutMapping(value="/usuario/{id}/carrito")
     public ResponseEntity<?> crearCarrito(@PathVariable("id") Long id,
                                         @Valid @RequestBody Carrito carrito){
-        Usuario usuario = usuarioRepository.getById(id);
-        carrito.setUsuario(usuario);
-        carrito.setEstadoAbierto(true);
+        carrito = carritoService.CrearCarrito(id, carrito);
         return new ResponseEntity<>(carritoRepository.save(carrito),HttpStatus.CREATED);
         }    
     
