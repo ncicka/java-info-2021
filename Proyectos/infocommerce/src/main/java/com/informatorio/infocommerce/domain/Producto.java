@@ -22,7 +22,7 @@ public class Producto {
     @NotBlank
     private String descripcion;
 
-    private String contenido;
+    private String contenido="";
 
     @Positive
     private BigDecimal precioUnitario;
