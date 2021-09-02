@@ -1,5 +1,8 @@
 package com.informatorio.infocommerce.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,8 +49,8 @@ public class Usuario extends FechaCreaMod{
     @NotBlank(message="Debe ingresar el pais")
     private String pais;
 
-   // @OneToMany(mappedBy= "usuario", cascade = CascadeType.ALL, orphanRemoval = true )
-   // private List<Carrito> carritos = new ArrayList<>();
+    @OneToMany(mappedBy= "usuario", cascade = CascadeType.ALL, orphanRemoval = true )
+    private List<Carrito> carritos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -116,6 +119,14 @@ public class Usuario extends FechaCreaMod{
 
     public void setPais(String pais) {
         this.pais = pais;
+    }
+
+    public List<Carrito> getCarritos() {
+        return this.carritos;
+    }
+
+    public void setCarritos(List<Carrito> carritos) {
+        this.carritos = carritos;
     }
 
     @Override
