@@ -1,0 +1,1153 @@
+{
+	"info": {
+		"_postman_id": "8e7062ed-fe5b-44e6-9b65-2a8804353553",
+		"name": "InfoCommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Consultas",
+			"item": [
+				{
+					"name": "Consultar Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Usuario por Id por QueryParam Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario?id=3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Usuario por Ciudad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario?ciudad=resistencia",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario"
+							],
+							"query": [
+								{
+									"key": "ciudad",
+									"value": "resistencia"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Usuario por FechaCreacioin posterior a",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario?fechaCreacion=2021-08-27",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario"
+							],
+							"query": [
+								{
+									"key": "fechaCreacion",
+									"value": "2021-08-27"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Producto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/producto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta de productos que contenga",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/producto?quecontenga=rem",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto"
+							],
+							"query": [
+								{
+									"key": "quecontenga",
+									"value": "rem"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta de productos publicado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/producto?publicado=true",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto"
+							],
+							"query": [
+								{
+									"key": "publicado",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "1- Happy path",
+			"item": [
+				{
+					"name": "CRUD Usuario",
+					"item": [
+						{
+							"name": "Agregar Usuario",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n    {\r\n        \"nombre\": \"Juana\",\r\n        \"apellido\": \"Gonzalez\",\r\n        \"email\": \"juanag@gmail.com\",\r\n        \"password\": \"aa3aaHol%\",\r\n        \"ciudad\": \"P.R.Saenz Peña\",\r\n        \"provincia\": \"Chaco\",\r\n        \"pais\": \"Argentina\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuario",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Usuario 2",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n    {\r\n        \"nombre\": \"Maria\",\r\n        \"apellido\": \"Perez\",\r\n        \"email\": \"mariap@gmail.com\",\r\n        \"password\": \"ba3abHol%\",\r\n        \"ciudad\": \"Quitilipi\",\r\n        \"provincia\": \"Chaco\",\r\n        \"pais\": \"Argentina\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuario",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Usuario 3",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n    {\r\n        \"nombre\": \"Mateo\",\r\n        \"apellido\": \"Morgan\",\r\n        \"email\": \"mateom@gmail.com\",\r\n        \"password\": \"cc3adHol%\",\r\n        \"ciudad\": \"Resistencia\",\r\n        \"provincia\": \"Chaco\",\r\n        \"pais\": \"Argentina\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuario",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Usuario  4",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n    {\r\n        \"nombre\": \"Jose\",\r\n        \"apellido\": \"Martin\",\r\n        \"email\": \"josem@gmail.com\",\r\n        \"password\": \"zx3arHol%\",\r\n        \"ciudad\": \"Resistencia\",\r\n        \"provincia\": \"Chaco\",\r\n        \"pais\": \"Argentina\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuario",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modificar Usuario",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Juana Marta\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuario/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Borrar Usuario",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/usuario/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CRUD Producto",
+					"item": [
+						{
+							"name": "Agregar Producto",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"RemXL\",\r\n    \"descripcion\": \"Remera XL KKK\",\r\n    \"precioUnitario\": 600.00,\r\n    \"contenido\": \"Al mejor precio\",\r\n    \"publicado\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 2",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"RemL\",\r\n    \"descripcion\": \"Remera L KKK\",\r\n    \"precioUnitario\": 800.00,\r\n    \"contenido\": \"Mejor precio\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 3",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Mou\",\r\n    \"descripcion\": \"Mouse Genius\",\r\n    \"precioUnitario\": 450.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 4",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Tec\",\r\n    \"descripcion\": \"Teclado Genius\",\r\n    \"precioUnitario\": 550.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 5",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Ter\",\r\n    \"descripcion\": \"Termo Lumilagro\",\r\n    \"precioUnitario\": 458.00,\r\n    \"contenido\": \"Descuento hasta el 30 de septiembre\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 6",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Colchoneta\",\r\n    \"descripcion\": \"Colchoneta Alta densidad\",\r\n    \"precioUnitario\": 1090.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 7",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Paleta\",\r\n    \"descripcion\": \"Paleta de Padel\",\r\n    \"precioUnitario\": 6900.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 8",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"televisor\",\r\n    \"descripcion\": \"Smart TV 32\\\"\",\r\n    \"precioUnitario\": 27999.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 9",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"frasco\",\r\n    \"descripcion\": \"Frasco de vidrio Cierre clip\",\r\n    \"precioUnitario\": 1400.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto 10",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"harina\",\r\n    \"descripcion\": \"harina pureza 1 kg\",\r\n    \"precioUnitario\": 82.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modificar Producto",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descripcion\": \"Remera Star Dama L\",\r\n    \"nombre\": \"Rem L\",\r\n    \"precioUnitario\": 820.00,\r\n    \"contenido\": \"cambio el contenido\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/producto/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Borrar Producto",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/producto/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"producto",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CRUD Carrito",
+					"item": [
+						{
+							"name": "1- Agregar Carrito a Usuario 1",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"estado\": true,\r\n    \"generadoPor\": \"PC\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuario/1/carrito",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"1",
+										"carrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2- Agregar Item al Carrito 2",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cantidad\": 8,\r\n    \"productoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3- Agregar Item 2 al Carrito 2",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cantidad\": 1,\r\n    \"productoId\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5- Modificar Carrito de Usuario 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"estadoAbierto\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4- Borrar Carrito de Usuario 1",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/carrito/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6- Agregar Carrito a Usuario 3",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"estado\": true,\r\n    \"generadoPor\": \"WEB\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuario/3/carrito",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"3",
+										"carrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "7- Agregar Item 1 al Carrito 3",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cantidad\": 1,\r\n    \"productoId\": 6\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8- Agregar Item 2 al Carrito 3",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cantidad\": 2,\r\n    \"productoId\": 7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "9- Agregar Item 3 al Carrito 3",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cantidad\": 3,\r\n    \"productoId\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "10- Agregar Item 4 al Carrito 3",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cantidad\": 5,\r\n    \"productoId\": 9\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consultar Carrito",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/usuario/3/carrito",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"3",
+										"carrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modificar Item de Carrito",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cantidad\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/item/4",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"item",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Borrar Item de Carrito",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/carrito/3/item/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"carrito",
+										"3",
+										"item",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CRUD OrdenCompra",
+					"item": [
+						{
+							"name": "Nueva Orden Compra",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"carritoId\": 3,\r\n    \"tipo\": \"A\",\r\n    \"estado\": \"CONFIRMADO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuario/3/orden",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"3",
+										"orden"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancelar Orden de compra",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/orden/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"orden",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consultar Orden de Compra de un usuario",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuario/3/orden",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuario",
+										"3",
+										"orden"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consultar Orden de Compra por Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/orden/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"orden",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
