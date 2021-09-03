@@ -22,7 +22,7 @@ public class ItemCarrito {
     @Positive
     private Integer cantidad;
 
-    @JsonIgnore
+    
     @ManyToOne(fetch = FetchType.LAZY)
     private Carrito carrito;
 
@@ -49,6 +49,7 @@ public class ItemCarrito {
         this.cantidad = cantidad;
     }
 
+    @JsonIgnore
     public Carrito getCarrito() {
         return this.carrito;
     }

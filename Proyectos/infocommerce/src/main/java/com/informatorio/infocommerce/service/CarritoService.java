@@ -1,5 +1,6 @@
 package com.informatorio.infocommerce.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.informatorio.infocommerce.domain.Carrito;
@@ -45,7 +46,7 @@ public class CarritoService {
 
     public Carrito CrearCarrito(Long id, Carrito carrito){
         Usuario usuario = usuarioRepository.getById(id);
-        if (!this.TieneCarritoActivo(id)){
+        if (!this.TieneCarritoActivo(id) ){
             carrito.setUsuario(usuario);
             carrito.setEstadoAbierto(true);
             carrito.setGeneradoPor(carrito.getGeneradoPor());
@@ -87,14 +88,15 @@ public class CarritoService {
         Carrito carrito = carritoRepository.getById(carritoId);
         Producto producto = productoRepository.getById(oCarrito.getProductoId());
         ItemCarrito nuevoItem = new ItemCarrito();
-        List<ItemCarrito> itemEncontrado =itemCarritoRepository.findDistinctByProducto(producto);
+        List<ItemCarrito> itemEncontrado =itemCarritoRepository.findDistinctByProductoAndCarrito(producto, carrito);
         if(itemEncontrado.isEmpty()){
             nuevoItem.setCarrito(carrito);
             nuevoItem.setProducto(producto);
             nuevoItem.setCantidad(oCarrito.getCantidad());
             carrito.agregarItem(nuevoItem);
         } else{
-            throw new MyEntityNotFoundException("Ya existe el producto en el carrito no se agrega");
+            throw new MyEntityNotFoundException("Ya existe el producto en el carrito no se agrega "
+                    +carrito.getId());
         }  
         return carrito;
     }
@@ -118,4 +120,20 @@ public class CarritoService {
         ItemCarrito itemEncontrado = itemCarritoRepository.getById(itemId);
         return itemEncontrado;
     }
+    public List<ItemCarrito> ListarItemCarrito(Long carritoId){
+        Carrito carritoEncontrado = carritoRepository.getById(carritoId);
+        List<ItemCarrito> itemsCarrito = carritoEncontrado.getItems();
+        return itemsCarrito;
+    }
+
+    public Boolean carritoVacio(Long carritoId){
+        Carrito carritoEncontrado = carritoRepository.getById(carritoId);
+        return carritoEncontrado.getTotal().equals(new BigDecimal(0));
+    }
+    public void CerrarCarrito(Long carritoId){
+        Carrito carritoEncontrado = carritoRepository.getById(carritoId);
+        carritoEncontrado.setEstadoAbierto(false);
+        carritoRepository.save(carritoEncontrado);
+    }
+
 }
