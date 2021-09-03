@@ -1,13 +1,17 @@
 package com.informatorio.infocommerce.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,8 +34,8 @@ public class Carrito {
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
-    //@OneToMany(mappedBy= "carrito", cascade = CascadeType.ALL, orphanRemoval = true )
-    //private List<ItemCarrito> items = new ArrayList<>();
+    @OneToMany(mappedBy= "carrito", cascade = CascadeType.ALL, orphanRemoval = true )
+    private List<ItemCarrito> items = new ArrayList<>();
 
     public Carrito() {
     }
@@ -66,11 +70,10 @@ public class Carrito {
 
     public BigDecimal getTotal() {
         this.total = new BigDecimal(0);
+        for (ItemCarrito itemCarrito : items) {
+            this.total = this.total.add(itemCarrito.getTotalLinea());    
+        }
         return this.total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
     }
 
     public Usuario getUsuario() {
@@ -79,6 +82,24 @@ public class Carrito {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public List<ItemCarrito> getItems() {
+        return this.items;
+    }
+
+    public void setItems(List<ItemCarrito> items) {
+        this.items = items;
+    }
+
+    public void agregarItem(ItemCarrito item){
+        items.add(item);
+        item.setCarrito(this); 
+    }
+
+    public void removerItem(ItemCarrito item){
+        items.remove(item);
+        item.setCarrito(null);   
     }
 
     @Override
