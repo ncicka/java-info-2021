@@ -27,7 +27,7 @@ public class CarritoService {
 
     public Carrito CrearCarrito(Long id, Carrito carrito){
         Usuario usuario = usuarioRepository.getById(id);
-        if (this.TieneCarritoActivo(id)){
+        if (!this.TieneCarritoActivo(id)){
             carrito.setUsuario(usuario);
             carrito.setEstadoAbierto(true);
         } else{

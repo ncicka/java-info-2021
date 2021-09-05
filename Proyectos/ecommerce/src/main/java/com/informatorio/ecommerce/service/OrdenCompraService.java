@@ -44,7 +44,6 @@ public class OrdenCompraService {
             itemOrdenCompra.setCantidad(itemCarrito.getCantidad());
             itemOrdenCompra.setProducto(itemCarrito.getProducto());
             itemOrdenCompra.setPrecioUnitario(itemCarrito.getProducto().getPrecioUnitario());
-            itemOrdenCompra.setProducto(itemCarrito.getProducto());
         return itemOrdenCompra;
     }
     
