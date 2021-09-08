@@ -34,7 +34,8 @@ public class UsuarioController {
     public ResponseEntity<?> getUsuarioById(@RequestParam(name="id",required=false) Long id,
         @RequestParam(name="ciudad", required=false) String ciudad,
         @RequestParam(name="fechaCreacion",required=false) 
-            @DateTimeFormat(iso=ISO.DATE) LocalDate fechaCreacion){
+        @DateTimeFormat(iso=ISO.DATE) LocalDate fechaCreacion){
+        
         if (id != null){
             return new ResponseEntity<>(usuarioService.getUsuarioId(id),HttpStatus.OK);
         }
@@ -59,6 +60,7 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.grabarUsuario(usuarioModificado),HttpStatus.ACCEPTED);
     }
 
+    // El Delete segun convencion tiene que devolver NOT_CONTENT
     @DeleteMapping(value="/{id}")
     public void borrarUsuario(@PathVariable("id") Long id){
         usuarioService.BorrarUsuarioId(id);

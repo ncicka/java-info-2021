@@ -45,7 +45,6 @@ public class OrdenCompraService {
             itemOrdenCompra.setCantidad(itemCarrito.getCantidad());
             itemOrdenCompra.setProducto(itemCarrito.getProducto());
             itemOrdenCompra.setPrecioUnitario(itemCarrito.getProducto().getPrecioUnitario());
-            itemOrdenCompra.setProducto(itemCarrito.getProducto());
         return itemOrdenCompra;
     }
     
@@ -68,6 +67,7 @@ public class OrdenCompraService {
     public Optional<OrdenCompra> VerOrdenCompraId(Long id){
         return ordenCompraRepository.findById(id);
     }
+    
     public OrdenCompra cerrarOrdenCompra(Long ordenId){
         OrdenCompra ordenEncontrada = ordenCompraRepository.getById(ordenId);
         ordenEncontrada.setEstado(Estado.CANCELADO);

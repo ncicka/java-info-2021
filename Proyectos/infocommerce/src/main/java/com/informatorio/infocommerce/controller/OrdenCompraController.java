@@ -36,6 +36,7 @@ public class OrdenCompraController {
         OrdenCompra ordenCompra = new OrdenCompra();
         //Verificar que Exista un carrito abierto y
         //que coincida con el de la oOrdenCpra
+        //Todo esto colocarlo en el Service
         if (carritoService.TieneCarritoActivo(id) && 
             carritoService.VerCarritoActivo(id).get(0).getId() == oOrdenCpra.getCarritoId()&&
             !carritoService.carritoVacio(oOrdenCpra.getCarritoId())){

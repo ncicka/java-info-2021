@@ -27,12 +27,16 @@ public class ProductoController {
 
     @GetMapping
     public ResponseEntity<?> getProducto(@RequestParam(name="quecontenga", required= false) String quecontenga,
-        @RequestParam(name="publicado",required = false) Boolean publicado){
+        @RequestParam(name="publicado",required = false) Boolean publicado,
+        @RequestParam(name="id", required = false) Long id){
         if(quecontenga != null){
             return new ResponseEntity<>(productoService.getProductoContenga(quecontenga),HttpStatus.OK);
         }
         if(publicado != null){
             return new ResponseEntity<>(productoService.getProductoPublicado(publicado),HttpStatus.OK);
+        }
+        if(id != null){
+            return new ResponseEntity<>(productoService.getProductoId(id),HttpStatus.OK);
         }
     return new ResponseEntity<>(productoService.listarTodos(),HttpStatus.OK);
     }
@@ -41,6 +45,7 @@ public class ProductoController {
     public ResponseEntity<?> crearProducto(@Valid @RequestBody Producto producto){
         return new ResponseEntity<>(productoService.grabarProducto(producto),HttpStatus.CREATED);
     }
+
     @PostMapping(value="/{id}")
     public ResponseEntity<?> modificarProducto(@PathVariable("id") Long id,
                                              @Valid @RequestBody Producto producto){
@@ -48,6 +53,7 @@ public class ProductoController {
         return new ResponseEntity<>(productoService.grabarProducto(productoModificado),HttpStatus.ACCEPTED);
     }
 
+    // El Delete segun convencion tiene que devolver NOT_CONTENT
     @DeleteMapping(value="/{id}")
     public void borrarProducto(@PathVariable("id") Long id){
         productoService.BorrarProductoId(id);

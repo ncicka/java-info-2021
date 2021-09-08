@@ -18,13 +18,10 @@ public class ProductoService {
     private ProductoRepository productoRepository;
 
     public Producto getProductoId(Long id){
-        Producto producto = new Producto();
-        try{
-            producto = productoRepository.findById(id).get();
-        } catch(Exception e){
-            throw new MyEntityNotFoundException("No se encuentra el producto: "+id );
-        }
-        return producto;
+        return productoRepository.findById(id).orElseThrow(
+            ()-> new MyEntityNotFoundException("No se encuentra el producto: "+id)
+        );
+        
     }
 
     public List<Producto> getProductoContenga(String buscar){
@@ -34,6 +31,7 @@ public class ProductoService {
         }
         return productos;
     }
+
     public List<Producto> listarTodos (){
         List<Producto> productos = productoRepository.findAll();
         if (productos.isEmpty()){
@@ -41,6 +39,7 @@ public class ProductoService {
         }
         return productos;
     }
+    
     public List<Producto> getProductoPublicado(Boolean buscar){
         List<Producto> productos = productoRepository.findByPublicado(buscar);
         if (productos.isEmpty()){

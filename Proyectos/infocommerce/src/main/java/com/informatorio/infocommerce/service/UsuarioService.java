@@ -20,13 +20,9 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario getUsuarioId(Long id){
-        Usuario usuario = new Usuario();
-        try{
-            usuario = usuarioRepository.findById(id).get();
-        } catch(Exception e){
-            throw new MyEntityNotFoundException("No se encnuentra el suario: "+id);
-        }
-        return usuario;
+        return usuarioRepository.findById(id).orElseThrow(
+            ()-> new MyEntityNotFoundException("No se encuentra el usuario: "+id)
+        );
     }
 
     public List<Usuario> ListarPorCiudad(String ciudad){
@@ -46,9 +42,9 @@ public class UsuarioService {
         }catch(Exception e){
             throw new MyEntityNotFoundException("No hay datos a mostrar anterior a "+fechaCreacion);
         }
-        
         return usuarios;
     }
+
     public List<Usuario> listarTodos (){
         List<Usuario> usuarios = usuarioRepository.findAll();
         if (usuarios.isEmpty()){
@@ -63,7 +59,6 @@ public class UsuarioService {
 
     public Usuario modificarUsuarioId(Long id, Usuario usuario){
         Usuario usuarioEncontrado = this.getUsuarioId(id);
-        System.out.println("PASA POR AQUI");
         if (usuario.getApellido()!=null){
             usuarioEncontrado.setApellido(usuario.getApellido());
         }

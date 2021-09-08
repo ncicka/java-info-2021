@@ -58,7 +58,7 @@ public class CarritoService {
 
     public Boolean TieneCarritoActivo(Long usuarioId){
         Usuario usuario = usuarioRepository.getById(usuarioId);
-        System.out.println("pasa por aqui");
+        //System.out.println("pasa por aqui");
         List<Carrito> tieneCarrito = carritoRepository.findByUsuarioAndEstadoAbierto(
             usuario, true);
         System.out.println(tieneCarrito);
@@ -120,6 +120,7 @@ public class CarritoService {
         ItemCarrito itemEncontrado = itemCarritoRepository.getById(itemId);
         return itemEncontrado;
     }
+
     public List<ItemCarrito> ListarItemCarrito(Long carritoId){
         Carrito carritoEncontrado = carritoRepository.getById(carritoId);
         List<ItemCarrito> itemsCarrito = carritoEncontrado.getItems();
@@ -130,6 +131,7 @@ public class CarritoService {
         Carrito carritoEncontrado = carritoRepository.getById(carritoId);
         return carritoEncontrado.getTotal().equals(new BigDecimal(0));
     }
+
     public void CerrarCarrito(Long carritoId){
         Carrito carritoEncontrado = carritoRepository.getById(carritoId);
         carritoEncontrado.setEstadoAbierto(false);
