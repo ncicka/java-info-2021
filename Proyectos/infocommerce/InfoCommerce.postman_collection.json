@@ -27,12 +27,12 @@
 					"response": []
 				},
 				{
-					"name": "Consultar Usuario por Id por QueryParam Copy",
+					"name": "Consultar Usuario por Id por Que No Existe",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/usuario?id=3",
+							"raw": "localhost:8080/usuario?id=5",
 							"host": [
 								"localhost"
 							],
@@ -43,7 +43,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "3"
+									"value": "5"
 								}
 							]
 						}
@@ -111,6 +111,30 @@
 							"port": "8080",
 							"path": [
 								"producto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Producto Que No Existe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/producto?id=11",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "11"
+								}
 							]
 						}
 					},
